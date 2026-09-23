@@ -13,14 +13,14 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.define "komp-box" do |vm1|
-  config.ssh.private_key_path = "/home/khant/kube-demo/komp-box/.ssh/id_rsa"
+  config.ssh.private_key_path = "~/projects/komp/.ssh/id_rsa"
   config.ssh.forward_agent = true
   config.ssh.username = "vagrant"
   config.ssh.password = "vagrant"
     vm1.vm.hostname = "komp-box"
     vm1.vm.box = "bento/ubuntu-24.04"
-    vm1.vm.synced_folder ".", "/home/vagrant"
-    vm1.vm.network "private_network", ip: "192.168.56.3", :name => "vboxnet0"
+    vm1.vm.synced_folder ".", "/home/vagrant/komp"
+    vm1.vm.network "private_network", ip: "192.168.56.4", :name => "vboxnet0"
     vm1.vm.provider "virtualbox" do |vb|
       vb.name = "komp-box"
       vb.memory = "8192"
@@ -38,6 +38,14 @@ Vagrant.configure("2") do |config|
       privileged: true,
       reset: true,
       path: "./scripts/docker-install.sh"
+
+    vm1.vm.provision "shell",
+      privileged: true,
+      path: "./scripts/go-install.sh"
+
+    vm1.vm.provision "shell",
+      privileged: true,
+      path: "./scripts/kubebuilder-install.sh"
 
     vm1.vm.provision "shell",
       privileged: true,
