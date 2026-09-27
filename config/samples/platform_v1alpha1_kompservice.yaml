@@ -1,0 +1,12 @@
+apiVersion: platform.komp.kzyn.dev/v1alpha1
+kind: KompService
+metadata:
+  labels:
+    app.kubernetes.io/name: komp
+    app.kubernetes.io/managed-by: kustomize
+  name: kompservice-sample
+spec:
+  image: nginx:1.27
+  port: 80
+  replicas: 1
+  # TODO(user): Add fields here

@@ -8,4 +8,14 @@ layout:
 - go.kubebuilder.io/v4
 projectName: komp
 repo: github.com/D3V-K/komp
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: komp.kzyn.dev
+  group: platform
+  kind: KompService
+  path: github.com/D3V-K/komp/api/v1alpha1
+  version: v1alpha1
 version: "3"
